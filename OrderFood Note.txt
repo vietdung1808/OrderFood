@@ -1,0 +1,53 @@
+Customer
+- Man hinh:
+	+ Login/signup
+	+ Doi mat khau
+	+ Trang chu: nhom mon an
+	+ Mon an (dat hang)
+	+ chi tiet mon an 
+	+ Gio hang
+	+ Ho so
+	
+Nha hang
+	+ Danh sach mon an (them, xoa, sua)
+	+ Confirm don hang 
+	
+	
+##DATABASE
+	User:
+		email
+		pass
+		name
+		phone
+		address
+		usertype
+		image
+	
+	Food:
+		foodid
+		catalogue
+		foodname	string
+		linkimage	string
+		price		long
+		status		int(0,1)
+		
+	Order:
+		orderid
+		foodname
+		price
+		linkimage
+		quantity
+		orderdate
+		customername
+		address
+		phone
+		status (-1,0,1)
+		
+	Restaurant
+		name
+		address
+		phone
+	
+	Catalogue
+		catalogueid
+		cataloguename 
