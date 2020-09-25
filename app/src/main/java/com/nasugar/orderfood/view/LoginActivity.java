@@ -47,7 +47,8 @@ public class LoginActivity extends AppCompatActivity {
 
     AlertDialog waiting;
 
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+
+
 
 
     @Override
@@ -103,52 +104,37 @@ public class LoginActivity extends AppCompatActivity {
                             final FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
                             String userID = USER.getUid();
 
+                            mData = FirebaseDatabase.getInstance().getReference().child("User").child(userID);
 
-//                            mData = FirebaseDatabase.getInstance().getReference().child("User").child(userID);
+                            mData.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                    waiting.dismiss();
+                                    User user = dataSnapshot.getValue(User.class);
+                                    Toast.makeText(LoginActivity.this, "Dang nhap thanh cong \n" + user.getName() , Toast.LENGTH_SHORT).show();
 
-
-                            myRef.child("SinhVien").setValue("Nguyen Van A")
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(LoginActivity.this, "Them thanh cong", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(LoginActivity.this, "Them that bai", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        }
-                                    });
-
-
-//                            mData.addValueEventListener(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-////                                    waiting.dismiss();
-////                                    User user = dataSnapshot.getValue(User.class);
-//                                    Toast.makeText(LoginActivity.this, "Dang nhap thanh cong /n" , Toast.LENGTH_SHORT).show();
+//                                    if (user.getUserType().equals("admin")) {
+//                                        startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+//                                    } else if (user.getUserType().equals("restaurent")) {
+//                                        startActivity(new Intent(LoginActivity.this, RestaurantActivity.class));
+//                                    } else if (user.getUserType().equals("customer")) {
 //
-////                                    if (user.getUserType().equals("admin")) {
-////                                        startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-////                                    } else if (user.getUserType().equals("restaurent")) {
-////                                        startActivity(new Intent(LoginActivity.this, RestaurantActivity.class));
-////                                    } else if (user.getUserType().equals("customer")) {
-////
-////                                        if (USER.isEmailVerified()) {
-////                                            startActivity(new Intent(LoginActivity.this, KhachHangActivity.class));
-////                                        } else {
-////                                            Toast.makeText(LoginActivity.this, "Vui lòng xác thực Email để đăng nhập", Toast.LENGTH_SHORT).show();
-////                                        }
-////
-////                                    }
-////                                    startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-//                                }
+//                                        if (USER.isEmailVerified()) {
+//                                            startActivity(new Intent(LoginActivity.this, KhachHangActivity.class));
+//                                        } else {
+//                                            Toast.makeText(LoginActivity.this, "Vui lòng xác thực Email để đăng nhập", Toast.LENGTH_SHORT).show();
+//                                        }
 //
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError databaseError) {
-//                                    Log.d("BBB", "onCancelled: " + databaseError.getMessage());
-//                                }
-//                            });
+//                                    }
+//                                    startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    Log.d("BBB", "onCancelled: " + databaseError.getMessage());
+                                    Toast.makeText(LoginActivity.this, "Dang nhap that bai", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
 
                             // ghi lai mk trong database neu quen mat kau sau khi lay lai
