@@ -64,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         mAuthencation = FirebaseAuth.getInstance();
 
         Paper.init(this);
-        mEmail = Paper.book().read(Common.USER_KEY);
-        mPass = Paper.book().read(Common.PWD_KEY);
+        mEmail = Paper.book().read(Common.USER_KEY,"");
+        mPass = Paper.book().read(Common.PWD_KEY,"");
         if (mEmail.length() > 0 && mPass.length() > 0) {
             DangNhap(mEmail, mPass, true);
         }
