@@ -51,6 +51,9 @@ public class LoginActivity extends AppCompatActivity {
 
     String mEmail, mPass;
 
+
+    AlertDialog waiting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                                     dlgWaiting.dismiss();
                                     User user = dataSnapshot.getValue(User.class);
                                     if (user.getUserType().equals("admin")) {
-//                                        startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                                        startActivity(new Intent(LoginActivity.this, RestaurantActivity.class));
                                     } else if (user.getUserType().equals("user")) {
 //                                        if (USER.isEmailVerified()) {
                                             startActivity(new Intent(LoginActivity.this, CustomerActivity.class));
