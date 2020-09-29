@@ -21,4 +21,9 @@
 
     <string name="facebook_app_id">659139777865159</string>
     <string name="facebook_login_protocol_name">fb659139777865159</string>
+
+    <string name="title_shop">Home</string>
+    <string name="title_deliveryList">Đơn hàng</string>
+    <string name="title_notification">Thông báo</string>
+    <string name="title_profile">Hồ sơ</string>
 </resources>

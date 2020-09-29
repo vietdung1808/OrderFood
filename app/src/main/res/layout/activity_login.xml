@@ -4,94 +4,103 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingTop="90dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:layout_height="match_parent"    >
 
-    android:background="@drawable/food3">
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary" />
+    <View
+        android:background="@drawable/wave"
+        android:layout_below="@id/view3"
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+
+    <ImageView
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_person" />
 
 
 
     <TextView
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dangnhap"
-        android:layout_centerHorizontal="true"
-        android:textSize="40sp"
-        android:textStyle="bold"
         android:textColor="@color/colorWhite"
-        android:fontFamily="@font/nabila"
-        />
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
     <LinearLayout
+        android:paddingLeft="@dimen/size10dp"
+        android:paddingRight="@dimen/size10dp"
         android:id="@+id/lnKhungDangNhap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="120dp">
+        android:layout_below="@id/view4"
+        android:orientation="vertical">
 
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtEmailLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_email_black_36dp"
+            android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="@dimen/size10dp"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="#FAF8F8"
-            android:textSize="30sp"
-            app:met_baseColor="#FFFFFF"
+            android:textSize="18sp"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#FFFFFF"
-            app:met_singleLineEllipsis="true" />
+            app:met_singleLineEllipsis="false" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtPassLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mật khẩu"
-            android:textColorHint="#FAF8F8"
-            android:id="@+id/edtPassLog"
-            android:textColor="@color/colorWhite"
-            android:textSize="30sp"
-            android:inputType="textPassword"
-            app:met_baseColor="#FFFFFF"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#FFFFFF"
-            app:met_minCharacters="6"
-            app:met_singleLineEllipsis="true"
-            android:drawableLeft="@drawable/ic_lock_black_36dp"
+            android:drawableLeft="@drawable/ic_lock"
             android:drawablePadding="@dimen/size10dp"
-            />
+            android:hint="Mật khẩu"
+            android:inputType="textPassword"
+            android:textSize="18sp"
+            app:met_floatingLabel="highlight"
+            app:met_minCharacters="6"
+            app:met_singleLineEllipsis="false" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <CheckBox
                 android:id="@+id/ckbRemember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:outlineAmbientShadowColor="@color/colorWhite"
-                android:outlineSpotShadowColor="@color/colorWhite"
+                android:outlineAmbientShadowColor="@color/colorPrimary"
+                android:outlineSpotShadowColor="@color/colorPrimary"
                 android:paddingLeft="10dp"
                 android:text="Nhớ tài khoản"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
 
 
         </LinearLayout>
 
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnLog"
@@ -101,26 +110,45 @@
                 android:layout_weight="1"
                 android:background="@drawable/duongvien_xanh"
                 android:text="Đăng nhập"
+                android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp"
-                android:textAllCaps="false"/>
-
+                android:textStyle="bold" />
 
 
         </LinearLayout>
 
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/forgotPass"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quên mật khẩu?"
-            android:textColor="@color/colorWhite"
-            android:textIsSelectable="true"
-            android:textSize="18sp"
-            android:layout_gravity="center"
-            />
+            android:weightSum="2"
+            android:orientation="horizontal" >
+            <TextView
+                android:paddingLeft="@dimen/size20dp"
+                android:id="@+id/forgotPass"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Quên mật khẩu"
+                android:textColor="@color/colorPrimary"
+                android:textIsSelectable="true"
+                android:textSize="18sp" />
+
+            <TextView
+                android:paddingRight="@dimen/size20dp"
+                android:gravity="right"
+                android:layout_weight="1"
+                android:id="@+id/register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Đăng ký"
+                android:textColor="@color/colorPrimary"
+                android:textIsSelectable="true"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+
 
 
     </LinearLayout>
