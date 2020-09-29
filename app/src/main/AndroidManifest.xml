@@ -16,9 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".view.CustomerActivity"></activity>
-        <activity android:name=".view.AddFoodActivity"></activity>
+        <activity android:name=".view.RegisterActivity"
+            android:theme="@style/AppTheme.ActionBar"
+            android:parentActivityName=".view.LoginActivity">
+        </activity>
+        <activity android:name=".view.CustomerActivity" />
+        <activity android:name=".view.AddFoodActivity" />
         <activity android:name=".view.ViewListFoodActivity" />
         <activity android:name=".view.RestaurantActivity" />
         <activity android:name=".view.LoginActivity">

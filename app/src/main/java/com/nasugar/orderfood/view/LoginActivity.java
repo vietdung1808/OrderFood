@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etPass;
 
     CheckBox chkRemember;
-    TextView tvForgotPass;
+    TextView tvForgotPass, tvRegister;
 
     AlertDialog dlgWaiting;
 
@@ -64,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         mAuthencation = FirebaseAuth.getInstance();
 
         Paper.init(this);
-        mEmail = Paper.book().read(Common.USER_KEY);
-        mPass = Paper.book().read(Common.PWD_KEY);
+        mEmail = Paper.book().read(Common.USER_KEY,"");
+        mPass = Paper.book().read(Common.PWD_KEY,"");
         if (mEmail.length() > 0 && mPass.length() > 0) {
             DangNhap(mEmail, mPass, true);
         }
@@ -86,6 +86,13 @@ public class LoginActivity extends AppCompatActivity {
 //                startActivity(new Intent(LoginActivity.this,ForgotPassActivity.class));
             }
         });
+
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
     }
 
     private void mapViews() {
@@ -94,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         etPass = findViewById((R.id.edtPassLog));
         chkRemember = findViewById(R.id.ckbRemember);
         tvForgotPass = findViewById(R.id.forgotPass);
+        tvRegister = findViewById(R.id.textViewRegister);
     }
 
     private void DangNhap(String email, final String pass, final boolean auto_login) {
@@ -123,11 +131,11 @@ public class LoginActivity extends AppCompatActivity {
                                     if (user.getUserType().equals("admin")) {
                                         startActivity(new Intent(LoginActivity.this, RestaurantActivity.class));
                                     } else if (user.getUserType().equals("user")) {
-//                                        if (USER.isEmailVerified()) {
+                                        if (USER.isEmailVerified()) {
                                             startActivity(new Intent(LoginActivity.this, CustomerActivity.class));
-//                                        } else {
-//                                            Toast.makeText(LoginActivity.this, "Vui lòng xác thực Email để đăng nhập", Toast.LENGTH_SHORT).show();
-//                                        }
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, "Vui lòng xác thực Email để đăng nhập", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
 //                                    startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                                 }
