@@ -6,6 +6,8 @@
     <dimen name="size25dp">25dp</dimen>
     <dimen name="size30dp">30dp</dimen>
     <dimen name="size40dp">40dp</dimen>
+    <dimen name="text_size">14sp</dimen>
+    <dimen name="text_size_label">16sp</dimen>
     
     <integer name="animation_duration_medium">2000</integer>
 

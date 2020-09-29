@@ -60,7 +60,7 @@
             android:drawablePadding="@dimen/size10dp"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size"
             app:met_floatingLabel="highlight"
             app:met_singleLineEllipsis="false" />
 
@@ -72,7 +72,7 @@
             android:drawablePadding="@dimen/size10dp"
             android:hint="Mật khẩu"
             android:inputType="textPassword"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size"
             app:met_floatingLabel="highlight"
             app:met_minCharacters="6"
             app:met_singleLineEllipsis="false" />
@@ -138,7 +138,7 @@
                 android:paddingRight="@dimen/size20dp"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:id="@+id/register"
+                android:id="@+id/textViewRegister"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Đăng ký"

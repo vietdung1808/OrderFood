@@ -16,8 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".view.DetailOrderActivity"></activity>
         <activity android:name=".view.RestaurantViewOrderActivity" />
+
+        <activity android:name=".view.RegisterActivity"
+            android:theme="@style/AppTheme.ActionBar"
+            android:parentActivityName=".view.LoginActivity">
+        </activity>
+
         <activity android:name=".view.CustomerActivity" />
         <activity android:name=".view.AddFoodActivity" />
         <activity android:name=".view.ViewListFoodActivity" />
