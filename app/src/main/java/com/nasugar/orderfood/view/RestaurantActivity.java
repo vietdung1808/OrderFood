@@ -62,12 +62,12 @@ public class RestaurantActivity extends AppCompatActivity {
             }
         });
 
-//        doiMK.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(RestaurantActivity.this,ChangePassActivity.class));
-//            }
-//        });
+        doiMK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RestaurantActivity.this,ChangePassActivity.class));
+            }
+        });
 
 //        themMon.setOnClickListener(new View.OnClickListener() {
 //            @Override
