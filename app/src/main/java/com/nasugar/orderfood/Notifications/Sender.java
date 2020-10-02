@@ -1,7 +1,5 @@
 package com.nasugar.orderfood.Notifications;
 
-import android.app.Notification;
-
 public class Sender {
     public Notification notification;
     public String to;
@@ -13,4 +11,7 @@ public class Sender {
 
     public Sender() {
     }
+
+
+
 }

@@ -3,7 +3,7 @@ package com.nasugar.orderfood.model;
 public class Order {
 
     private String diachigiaohang;
-    private String sdtKhachHang;
+        private String sdtKhachHang;
     private String UserID;
     private String tenkhachhang;
     private String tenQuan;
