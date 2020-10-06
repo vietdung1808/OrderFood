@@ -53,6 +53,7 @@ public class RestaurantActivity extends AppCompatActivity {
         Paper.init(this);
 
         AnhXa();
+
         tenQuan.setText( "Quán " + user.getDisplayName() );
 
         LogOut.setOnClickListener(new View.OnClickListener() {
