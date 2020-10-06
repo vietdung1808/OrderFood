@@ -20,12 +20,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/btnThoatXemdonhangQuanan"
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:text="Thoát"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
 
 </RelativeLayout>
