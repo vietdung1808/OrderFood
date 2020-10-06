@@ -52,7 +52,7 @@ public class AddFoodActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_add_food );
 
-        final StorageReference storageRef = storage.getReferenceFromUrl("gs://orderfood-f6895.appspot.com");
+        final StorageReference storageRef = storage.getReferenceFromUrl("gs://orderfood-f6895.appspot.com//Food_Images");
         AnhXa();
         waiting =  new SpotsDialog.Builder().setContext(this).setMessage("Vui lòng đợi").setCancelable(false).build();
 
@@ -71,12 +71,13 @@ public class AddFoodActivity extends AppCompatActivity {
                 waiting.show();
                 final String ten  =   tenMon.getText().toString();
                 final String stringGia = giaMon.getText().toString();
-                final long gia    =   Long.parseLong(stringGia);
+
                 if(ten.isEmpty()|| stringGia.isEmpty()){
                     waiting.dismiss();
                     Toast.makeText(AddFoodActivity.this, "Vui lòng nhập đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    final long gia    =   Long.parseLong(stringGia);
                     Calendar calendar = Calendar.getInstance();
                     final String tenhinh="image"+calendar.getTimeInMillis();
                     final StorageReference mountainsRef = storageRef.child(tenhinh+".png");

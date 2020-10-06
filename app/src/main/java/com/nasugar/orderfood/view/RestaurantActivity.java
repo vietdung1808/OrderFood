@@ -35,7 +35,7 @@ import io.paperdb.Paper;
 
 
 public class RestaurantActivity extends AppCompatActivity {
-    Button themMon, xemDSMon, xemDonDatHang, doiMK, update;
+    Button  xemDSMon, xemDonDatHang, doiMK, update;
     ImageView LogOut;
     TextView tenQuan;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -69,12 +69,6 @@ public class RestaurantActivity extends AppCompatActivity {
             }
         });
 
-//        themMon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(RestaurantActivity.this, AddFoodActivity.class));
-//            }
-//        });
 
         xemDSMon.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -104,7 +98,6 @@ public class RestaurantActivity extends AppCompatActivity {
         LogOut = (ImageView) findViewById( R.id.btnLogOutQuan );
         doiMK = (Button) findViewById( R.id.btnChangePassQuan );
         tenQuan = (TextView) findViewById( R.id.twTenQuan );
-        themMon = (Button) findViewById( R.id.btnThemMon );
         xemDSMon = (Button) findViewById( R.id.btnXemMon );
         xemDonDatHang = (Button) findViewById( R.id.btnXemDonHang );
         update = findViewById( R.id.btnUpdateInfoRestaurant );

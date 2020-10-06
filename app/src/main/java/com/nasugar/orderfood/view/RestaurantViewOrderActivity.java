@@ -106,9 +106,6 @@ public class RestaurantViewOrderActivity extends AppCompatActivity {
         });
     }
 
-
-
-
     private Integer getDayTime(String date){
         return Integer.parseInt(date.substring(0,2));
     }

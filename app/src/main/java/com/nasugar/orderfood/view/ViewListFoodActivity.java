@@ -141,12 +141,12 @@ public class ViewListFoodActivity extends AppCompatActivity {
             case 122:
                 DialogUpdate(name);
                 return true;
-            case 123:
-                Banner banner = new Banner(name,userID,arrFood.get(pos).getLinkAnh());
-                mDatabase = FirebaseDatabase.getInstance().getReference("Banner").child(userID);
-                mDatabase.setValue(banner);
-                displayMessage("Đã đặt "+ name+" làm Hot Food");
-                return true;
+//            case 123:
+//                Banner banner = new Banner(name,userID,arrFood.get(pos).getLinkAnh());
+//                mDatabase = FirebaseDatabase.getInstance().getReference("Banner").child(userID);
+//                mDatabase.setValue(banner);
+//                displayMessage("Đã đặt "+ name+" làm Hot Food");
+//                return true;
 
             default:
                 return super.onContextItemSelected(item);
