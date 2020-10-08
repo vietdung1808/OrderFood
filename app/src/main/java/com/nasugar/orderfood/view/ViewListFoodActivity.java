@@ -55,10 +55,10 @@ public class ViewListFoodActivity extends AppCompatActivity {
 
         AnhXa();
 
-        Intent intent = getIntent();
-        if (intent != null) {
-            foodCategoryID = intent.getStringExtra("foodCategoryID");
-        }
+//        Intent intent = getIntent();
+//        if (intent != null) {
+//            foodCategoryID = intent.getStringExtra("foodCategoryID");
+//        }
 
         initRecyclerView();
         tenquan.setText("Quán "+ user.getDisplayName());
@@ -91,17 +91,18 @@ public class ViewListFoodActivity extends AppCompatActivity {
         recyclerViewFood.setLayoutManager(layoutManager);
         recyclerViewFood.setItemAnimator(new DefaultItemAnimator());
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(userID).child( foodCategoryID );
+//        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(userID).child( foodCategoryID );
+        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(userID);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    if(ds.getValue() != null) {
+                    for (DataSnapshot ds1 : ds.getChildren()) {
+                        if(ds1.getValue() != null) {
                             food = ds.getValue(MonAn.class);
                             arrFood.add(food);
-
+                        }
                     }
-
                 }
                 viewFoodAdapter = new ViewFoodAdapter(arrFood,getApplicationContext());
                 recyclerViewFood.setAdapter(viewFoodAdapter);

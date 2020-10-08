@@ -23,11 +23,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".view.FoodActivity"
-            android:parentActivityName=".view.CustomerActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ActionBar" />
-        <activity
             android:name=".view.RegisterActivity"
             android:parentActivityName=".view.LoginActivity"
             android:theme="@style/AppTheme.ActionBar" />
@@ -40,6 +35,7 @@
         <activity android:name=".view.RestaurantViewOrderActivity" />
         <activity android:name=".view.ViewListFoodActivity" />
         <activity android:name=".view.RestaurantActivity" />
+        <activity android:name=".view.AddFoodActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

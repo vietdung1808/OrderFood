@@ -60,8 +60,6 @@ public class ViewFoodAdapter extends RecyclerView.Adapter<ViewFoodAdapter.ViewHo
             viewHolder.status.setText("Còn hàng");
         }
         Picasso.with(context).load(monAn.getLinkAnh()).into(viewHolder.image);
-
-
     }
 
 
