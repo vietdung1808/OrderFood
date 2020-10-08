@@ -67,4 +67,16 @@ public class MonAn {
     public void setTinhTrang(int tinhTrang) {
         this.tinhTrang = tinhTrang;
     }
+
+    @Override
+    public String toString() {
+        return "MonAn{" +
+                "tenQuan='" + tenQuan + '\'' +
+                ", idQuan='" + idQuan + '\'' +
+                ", tenMon='" + tenMon + '\'' +
+                ", linkAnh='" + linkAnh + '\'' +
+                ", giaMon=" + giaMon +
+                ", tinhTrang=" + tinhTrang +
+                '}';
+    }
 }

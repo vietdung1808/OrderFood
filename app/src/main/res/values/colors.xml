@@ -3,7 +3,9 @@
     <color name="colorPrimary">#0099ff</color>
     <color name="colorPrimaryDark">#0099ff</color>
     <color name="colorPrimary_Dark">#124717</color>
-    <color name="bgBottomNavigation">#fe485a</color>
+    <color name="bgBottomNavigation">#0099ff</color>
+    <color name="colorSecondary">#03DAC6</color>
+    <color name="colorSecondaryLight">#EFE9E9</color>
 
     <color name="colorAccent">#2B6D2D</color>
     <color name="colorWhite">#FFF</color>

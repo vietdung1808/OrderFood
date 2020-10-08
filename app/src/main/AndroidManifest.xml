@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.nasugar.orderfood">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -16,11 +18,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.RegisterActivity"
-            android:theme="@style/AppTheme.ActionBar"
-            android:parentActivityName=".view.LoginActivity">
-        </activity>
-        <activity android:name=".view.CustomerActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".view.FoodActivity"
+            android:parentActivityName=".view.CustomerActivity"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity
+            android:name=".view.RegisterActivity"
+            android:parentActivityName=".view.LoginActivity"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".view.CustomerActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".view.AddFoodActivity" />
         <activity android:name=".view.ViewListFoodActivity" />
         <activity android:name=".view.RestaurantActivity" />
