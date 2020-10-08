@@ -35,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nasugar.orderfood.R;
+import com.nasugar.orderfood.model.FoodCatalogue;
 import com.nasugar.orderfood.model.MonAn;
 
 import java.io.ByteArrayOutputStream;
@@ -62,25 +63,10 @@ public class AddFoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_add_food );
+
         AnhXa();
 
-        refData.child("FoodCatalogue").addValueEventListener( new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
-                    FoodCategory titlename = dataSnapshot1.getValue( FoodCategory.class);
-                    list.add(titlename.getName());
-                }
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddFoodActivity.this, android.R.layout.simple_spinner_item, list);
-                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(arrayAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AddFoodActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        } );
+        ShowFoodCategory();
 
         waiting =  new SpotsDialog.Builder().setContext(this).setMessage("Vui lòng đợi").setCancelable(false).build();
 
@@ -165,6 +151,27 @@ public class AddFoodActivity extends AppCompatActivity {
         });
 
     }
+
+    private void ShowFoodCategory() {
+        refData.child("FoodCatalogue").addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
+                    FoodCatalogue titlename = dataSnapshot1.getValue( FoodCatalogue.class);
+                    list.add(titlename.getName());
+                }
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddFoodActivity.this, android.R.layout.simple_spinner_item, list);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(arrayAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AddFoodActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        } );
+    }
+
     // chọn ảnh từ file
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
