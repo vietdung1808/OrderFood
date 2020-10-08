@@ -3,8 +3,8 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingTop="40dp"
+    android:paddingBottom="10dp"
+    android:paddingTop="20dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:orientation="vertical"
@@ -14,24 +14,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thêm món ăn"
         android:layout_centerHorizontal="true"
-        android:textSize="35sp"
-        android:textStyle="bold"
+        android:text="Thêm món ăn"
         android:textColor="@color/colorPrimary"
-        />
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="70dp">
+        android:layout_marginTop="50dp">
 
 
         <EditText
             android:id="@+id/edtTenMon"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="45dp"
             android:layout_margin="@dimen/size15dp"
             android:background="@drawable/vienxanhla"
             android:hint="Tên món ăn"
@@ -45,7 +44,7 @@
         <EditText
             android:id="@+id/edtGiaMon"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="45dp"
             android:layout_margin="@dimen/size15dp"
             android:background="@drawable/vienxanhla"
             android:hint="Giá món ăn"
@@ -55,8 +54,26 @@
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorGray"
             android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="Chọn danh mục món ăn"
+            android:textSize="20sp"
+            android:paddingLeft="15dp"/>
 
-
+        <Spinner
+            android:layout_margin="10sp"
+            android:padding="10sp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/spinnerFoodCategory"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginBottom="20dp" />
     </LinearLayout>
 
     <TextView
@@ -64,22 +81,24 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorBlack"
         android:text="Thêm hình ảnh món ăn"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="320dp"
         android:textSize="20sp"
         android:paddingLeft="15dp"/>
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="170dp"
         android:layout_height="150dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="370dp"
         android:layout_marginLeft="10dp"
         android:src="@drawable/image"/>
+
+
     <Button
         android:id="@+id/btnfolder"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@drawable/folder"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="370dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"/>
 
@@ -89,7 +108,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="490dp">
+        android:layout_marginTop="550dp">
 
         <Button
             android:layout_gravity="center"
@@ -105,15 +124,7 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spinnerFoodCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginBottom="51dp" />
+
 
 
 </RelativeLayout>
