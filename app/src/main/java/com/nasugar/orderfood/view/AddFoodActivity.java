@@ -70,21 +70,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
         AnhXa();
 
-<<<<<<< HEAD
-        refData.child("FoodCatalogue").addValueEventListener( new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
-                    FoodCatalogue titlename = dataSnapshot1.getValue( FoodCatalogue.class);
-                    list.add(titlename.getName());
-                }
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddFoodActivity.this, android.R.layout.simple_spinner_item, list);
-                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(arrayAdapter);
-            }
-=======
         ShowFoodCategory();
->>>>>>> 185c5ad30646c5d7154d3ec5182e51dd7a5b29d5
 
 
         folder.setOnClickListener( new View.OnClickListener() {
