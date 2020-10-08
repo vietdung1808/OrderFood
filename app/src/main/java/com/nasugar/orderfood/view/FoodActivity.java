@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.nasugar.orderfood.R;
 import com.nasugar.orderfood.adapter.FoodAdapter;
 import com.nasugar.orderfood.interfaces.OnFoodListener;
+import com.nasugar.orderfood.model.Cart;
 import com.nasugar.orderfood.model.FoodCatalogue;
 import com.nasugar.orderfood.model.MonAn;
 
@@ -39,6 +40,8 @@ public class FoodActivity extends AppCompatActivity {
     private FoodAdapter mFoodAdapter;
 
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user;
+    List<Cart> mCartList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,30 +61,72 @@ public class FoodActivity extends AppCompatActivity {
         mFoodAdapter = new FoodAdapter(this, mMonAnList);
         rcvFood.setAdapter(mFoodAdapter);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        mCartList = new ArrayList<>();
+
         getItemData();
+        loadCart();
         setOnListener();
     }
+
 
     private void setOnListener() {
         mFoodAdapter.setOnItemClickListener(new OnFoodListener() {
             @Override
-            public void onAddToCartClick(MonAn monAn) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            public void onAddToCartClick(final MonAn monAn) {
                 DatabaseReference database = myRef.child("Carts/" + user.getUid());
-                database.setValue(monAn).addOnCompleteListener(new OnCompleteListener<Void>() {
+                Cart cartItem = new Cart();
+                boolean isExits = false;
+                for (Cart cart: mCartList) {
+                    if (cart.getTenMon().equals(monAn.getTenMon())) {
+                        cart.setSoluong(cart.getSoluong() + 1);
+                        cart.setTongTien(cart.getSoluong() * cart.getGiaMon());
+                        cartItem = cart;
+//                        database.child(cart.getTenMon()).setValue(cart);
+                        isExits = true;
+                        break;
+                    }
+                }
+
+                if (!isExits) {
+                    cartItem = new Cart(monAn.getTenMon(), monAn.getLinkAnh(), monAn.getGiaMon(), 1, monAn.getGiaMon());
+                    mCartList.add(cartItem);
+                }
+
+                database.child(cartItem.getTenMon()).setValue(cartItem).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful())
                             Toast.makeText(FoodActivity.this, "Đã thêm vào giỏ", Toast.LENGTH_SHORT).show();
                         else
                             Toast.makeText(FoodActivity.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
-
                     }
                 });
             }
         });
     }
 
+    private void loadCart() {
+        DatabaseReference database = myRef.child("Carts/" + user.getUid());
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    Cart cart = item.getValue(Cart.class);
+                    mCartList.add(cart);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
     private void getItemData() {
 

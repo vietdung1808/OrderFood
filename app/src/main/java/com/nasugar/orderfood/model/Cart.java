@@ -57,4 +57,15 @@ public class Cart {
     public void setTongTien(long tongTien) {
         this.tongTien = tongTien;
     }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "tenMon='" + tenMon + '\'' +
+                ", linkAnh='" + linkAnh + '\'' +
+                ", giaMon=" + giaMon +
+                ", soluong=" + soluong +
+                ", tongTien=" + tongTien +
+                '}';
+    }
 }

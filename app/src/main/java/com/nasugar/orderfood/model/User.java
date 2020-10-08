@@ -8,6 +8,7 @@ public class User {
     private String address;
     private String userType;
     private String image;
+
     public User(){
         //default
     }

@@ -31,10 +31,11 @@ import com.nasugar.orderfood.R;
 import com.nasugar.orderfood.model.Token;
 import com.nasugar.orderfood.model.User;
 
+import io.paperdb.Paper;
 
 
 public class RestaurantActivity extends AppCompatActivity {
-    Button themMon, xemDSMon, xemDonDatHang, doiMK, update;
+    Button  xemDSMon, xemDonDatHang, doiMK, update;
     ImageView LogOut;
     TextView tenQuan;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -48,32 +49,27 @@ public class RestaurantActivity extends AppCompatActivity {
 //
         updateToken( FirebaseInstanceId.getInstance().getToken());
 //
-//        // Paper init
-//        Paper.init(this);
+        // Paper init
+        Paper.init(this);
 
         AnhXa();
+
         tenQuan.setText( "Quán " + user.getDisplayName() );
 
-//        LogOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DangXuat();
-//            }
-//        });
-//
-//        doiMK.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(RestaurantActivity.this,ChangePassActivity.class));
-//            }
-//        });
-//
-//        themMon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(RestaurantActivity.this, AddFoodActivity.class));
-//            }
-//        });
+        LogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DangXuat();
+            }
+        });
+
+        doiMK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RestaurantActivity.this,ChangePassActivity.class));
+            }
+        });
+
 
         xemDSMon.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -82,18 +78,20 @@ public class RestaurantActivity extends AppCompatActivity {
             }
         } );
 
-//        xemDonDatHang.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(RestaurantActivity.this, RestaurantViewOrderActivity.class));
-//            }
-//        });
-//        update.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDialogUpdate();
-//            }
-//        });
+        xemDonDatHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RestaurantActivity.this, RestaurantViewOrderActivity.class));
+            }
+        });
+
+// Cập nhật thông tin của quán ăn
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogUpdate();
+            }
+        });
 
     }
 
@@ -101,86 +99,102 @@ public class RestaurantActivity extends AppCompatActivity {
         LogOut = (ImageView) findViewById( R.id.btnLogOutQuan );
         doiMK = (Button) findViewById( R.id.btnChangePassQuan );
         tenQuan = (TextView) findViewById( R.id.twTenQuan );
-        themMon = (Button) findViewById( R.id.btnThemMon );
         xemDSMon = (Button) findViewById( R.id.btnXemMon );
         xemDonDatHang = (Button) findViewById( R.id.btnXemDonHang );
         update = findViewById( R.id.btnUpdateInfoRestaurant );
     }
 
     private void DangXuat() {
-//        final Dialog dialogLogOut = new Dialog(RestaurantActivity.this,R.style.Theme_Dialog);
-//        dialogLogOut.setContentView(R.layout.dialog_dang_xuat);
-//        dialogLogOut.show();
-//        Button khong=(Button) dialogLogOut.findViewById(R.id.btnKhongDialogDangXuat);
-//        Button thoat=(Button) dialogLogOut.findViewById((R.id.btnDialogDangXuat));
-//        khong.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialogLogOut.cancel();
-//            }
-//        });
-//        thoat.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //delete remember user and password
-//                Paper.book().destroy();
-//                dialogLogOut.cancel();
-//                startActivity(new Intent(RestaurantActivity.this,WelcomActivity.class));
-//            }
-//        });
+        final Dialog dialogLogOut = new Dialog(RestaurantActivity.this,R.style.Theme_Dialog);
+        dialogLogOut.setContentView(R.layout.dialog_dang_xuat);
+        dialogLogOut.show();
+        Button khong=(Button) dialogLogOut.findViewById(R.id.btnKhongDialogDangXuat);
+        Button thoat=(Button) dialogLogOut.findViewById((R.id.btnDialogDangXuat));
+        khong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogLogOut.cancel();
+            }
+        });
+
+        thoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //delete remember user and password
+                Paper.book().destroy();
+                dialogLogOut.cancel();
+                startActivity(new Intent(RestaurantActivity.this,LoginActivity.class));
+            }
+        });
     }
 
-
     private void showDialogUpdate() {
-//        final Dialog dialog   = new Dialog(RestaurantActivity.this,R.style.Theme_Dialog);
-//        dialog.setContentView(R.layout.dialog_update_info);
-//        dialog.show();
-//        final EditText name = (EditText) dialog.findViewById(R.id.updateName);
-//        final EditText address = (EditText) dialog.findViewById(R.id.updateAddress);
-//        final EditText phone = (EditText) dialog.findViewById(R.id.updatePhone);
-//        Button update = (Button) dialog.findViewById(R.id.btnUpdate);
-//        Button cancel = (Button) dialog.findViewById(R.id.btnCancel);
-//
-//        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                User user = dataSnapshot.getValue(User.class);
-//                name.setText(user.getName());
-//                address.setText(user.getAddress());
-//                phone.setText(user.getPhone());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.cancel();
-//            }
-//        });
+        final Dialog dialog   = new Dialog(RestaurantActivity.this,R.style.Theme_Dialog);
+        dialog.setContentView(R.layout.dialog_update_info);
+        dialog.show();
+        final EditText name = (EditText) dialog.findViewById(R.id.updateName);
+        final EditText address = (EditText) dialog.findViewById(R.id.updateAddress);
+        final EditText phone = (EditText) dialog.findViewById(R.id.updatePhone);
+        Button update = (Button) dialog.findViewById(R.id.btnUpdate);
+        Button cancel = (Button) dialog.findViewById(R.id.btnCancel);
 
-//        update.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final String Name = name.getText().toString();
-//                final String Address = address.getText().toString();
-//                final String Phone = phone.getText().toString();
-//                if(Name.isEmpty() || Address.isEmpty() || Phone.isEmpty()){
-//                    Toast.makeText(RestaurantActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//                    Toast.makeText(RestaurantActivity.this, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
-//                    dialog.cancel();
-//                    mDatabase.child("name").setValue(Name);
-//                    mDatabase.child("address").setValue(Address);
-//                    mDatabase.child("phone").setValue(Phone);
-//                }
-//            }
-//        });
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                name.setText(user.getName());
+                address.setText(user.getAddress());
+                phone.setText(user.getPhone());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String Name = name.getText().toString();
+                final String Address = address.getText().toString();
+                final String Phone = phone.getText().toString();
+                if(Name.isEmpty() || Address.isEmpty() || Phone.isEmpty()){
+                    Toast.makeText(RestaurantActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(RestaurantActivity.this, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
+                    mDatabase.child("name").setValue(Name);
+                    mDatabase.child("address").setValue(Address);
+                    mDatabase.child("phone").setValue(Phone);
+
+                    // Dung de cap nhat thong tin user profile cho quan an
+                    if( user != null)
+                    {
+                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(Name.toString().trim()).build();
+
+                        user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Log.d("Testing", "User Profile Updated");
+                                }
+                            }
+                        });
+                    }
+
+                }
+            }
+        });
     }
 
     private void updateToken (String token){

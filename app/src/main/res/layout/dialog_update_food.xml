@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="365dp"
     android:paddingTop="@dimen/size10dp"
@@ -62,8 +61,7 @@
         app:met_singleLineEllipsis="true"
         />
 
-
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         app:cardBackgroundColor="@color/colorWhite"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -71,8 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="5dp"
-        app:cardUseCompatPadding="true">
-
+        app:cardUseCompatPadding="true" >
         <RadioGroup
             android:paddingBottom="10dp"
             android:weightSum="10"
@@ -98,8 +95,8 @@
                 android:text="Hết hàng"
                 android:textSize="22sp"/>
         </RadioGroup>
+    </androidx.cardview.widget.CardView>
 
-    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:gravity="center"
@@ -131,5 +128,6 @@
 
 
     </LinearLayout>
+
 
 </RelativeLayout>

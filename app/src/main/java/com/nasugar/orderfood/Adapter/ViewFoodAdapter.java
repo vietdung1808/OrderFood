@@ -3,6 +3,7 @@ package com.nasugar.orderfood.Adapter;
 import android.content.Context;
 import android.graphics.Color;
 
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,23 +15,32 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.nasugar.orderfood.R;
 import com.nasugar.orderfood.model.MonAn;
+import com.nasugar.orderfood.model.Order;
 import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ViewFoodAdapter extends RecyclerView.Adapter<ViewFoodAdapter.ViewHolder> {
     ArrayList<MonAn> arrMonAn;
     Context context;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mDatabase;
-
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public ViewFoodAdapter(ArrayList<MonAn> arrMonAn, Context context) {
         this.arrMonAn = arrMonAn;
@@ -86,13 +96,14 @@ public class ViewFoodAdapter extends RecyclerView.Adapter<ViewFoodAdapter.ViewHo
             menu.setHeaderTitle("Lựa chọn Option");
             menu.add(this.getAdapterPosition(),121,0,"Xóa món ăn");
             menu.add(this.getAdapterPosition(),122,1,"Cập nhật món ăn");
-            menu.add(this.getAdapterPosition(),123,2,"Đặt làm Hot Food");
+//            menu.add(this.getAdapterPosition(),123,2,"Đặt làm Hot Food");
         }
     }
 
     public void removeItem(int position, String name){
         arrMonAn.remove(position);
         notifyDataSetChanged();
+        final String[] linkAnh = {""};
         // remove in database
         mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(user.getUid()).child(name);
         mDatabase.setValue(null);
