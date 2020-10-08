@@ -147,7 +147,6 @@ public class AddFoodActivity extends AppCompatActivity {
                                         link = task.getResult().toString();
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                         String IDQuan = user.getUid();
-
                                         MonAn Mon = new MonAn( user.getDisplayName(), IDQuan, ten, link, gia, 1 );
                                         DatabaseReference refData = FirebaseDatabase.getInstance().getReference();
                                         refData.child( "QuanAn" ).child( IDQuan ).child( selectFoodCategory ).child( ten ).setValue( Mon );
