@@ -47,6 +47,7 @@ public class ViewListFoodActivity extends AppCompatActivity {
     FloatingActionButton fabThemMonAn;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String userID = user.getUid();
+    String foodCategoryID = "";
     DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,12 @@ public class ViewListFoodActivity extends AppCompatActivity {
         setContentView( R.layout.activity_view_list_food );
 
         AnhXa();
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            foodCategoryID = intent.getStringExtra("foodCategoryID");
+        }
+
         initRecyclerView();
         tenquan.setText("Quán "+ user.getDisplayName());
         back.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +69,6 @@ public class ViewListFoodActivity extends AppCompatActivity {
                 startActivity(new Intent(ViewListFoodActivity.this, RestaurantActivity.class));
             }
         });
-
 
         //Them mon an
         fabThemMonAn.setOnClickListener( new View.OnClickListener() {
@@ -78,9 +84,6 @@ public class ViewListFoodActivity extends AppCompatActivity {
         fabThemMonAn = findViewById( R.id.fabThemMonAn );
     }
 
-
-
-
     private void initRecyclerView(){
         recyclerViewFood = (RecyclerView) findViewById(R.id.recycler_view_food);
 
@@ -89,15 +92,17 @@ public class ViewListFoodActivity extends AppCompatActivity {
         recyclerViewFood.setLayoutManager(layoutManager);
         recyclerViewFood.setItemAnimator(new DefaultItemAnimator());
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(userID);
+        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(userID).child( foodCategoryID );
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    if(dataSnapshot.getValue() != null) {
-                        food = ds.getValue(MonAn.class);
-                        arrFood.add(food);
+                    if(ds.getValue() != null) {
+                            food = ds.getValue(MonAn.class);
+                            arrFood.add(food);
+
                     }
+
                 }
                 viewFoodAdapter = new ViewFoodAdapter(arrFood,getApplicationContext());
                 recyclerViewFood.setAdapter(viewFoodAdapter);
@@ -110,8 +115,6 @@ public class ViewListFoodActivity extends AppCompatActivity {
 
             }
         });
-
-
 
     }
 
@@ -152,8 +155,6 @@ public class ViewListFoodActivity extends AppCompatActivity {
                 return super.onContextItemSelected(item);
 
         }
-
-
     }
 
     private void displayMessage(String msg){

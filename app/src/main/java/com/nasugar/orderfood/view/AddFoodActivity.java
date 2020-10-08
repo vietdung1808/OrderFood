@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,17 +49,20 @@ import java.util.List;
 import dmax.dialog.SpotsDialog;
 
 public class AddFoodActivity extends AppCompatActivity {
-    private Button themMon,folder;
-    private EditText tenMon,giaMon;
+    private Button themMon, folder;
+    private EditText tenMon, giaMon;
     private ImageView image;
     private int REQUEST_CODE_FOLDER = 123;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     DatabaseReference refData = FirebaseDatabase.getInstance().getReference();
-    final StorageReference storageRef = storage.getReferenceFromUrl("gs://orderfood-f6895.appspot.com//Food_Images");
-    private String link ;
+    final StorageReference storageRef = storage.getReferenceFromUrl( "gs://orderfood-f6895.appspot.com//Food_Images" );
+    private String link;
     AlertDialog waiting;
     Spinner spinner;
+    private String selectFoodCategory;
     final List<String> list = new ArrayList<String>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -68,48 +72,60 @@ public class AddFoodActivity extends AppCompatActivity {
 
         ShowFoodCategory();
 
-        waiting =  new SpotsDialog.Builder().setContext(this).setMessage("Vui lòng đợi").setCancelable(false).build();
 
-        folder.setOnClickListener(new View.OnClickListener() {
+        folder.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent,REQUEST_CODE_FOLDER);
+                Intent intent = new Intent( Intent.ACTION_PICK );
+                intent.setType( "image/*" );
+                startActivityForResult( intent, REQUEST_CODE_FOLDER );
             }
-        });
+        } );
 
-        themMon.setOnClickListener(new View.OnClickListener() {
+        spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectFoodCategory = (String) parent.getItemAtPosition( position );
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        } );
+
+        waiting = new SpotsDialog.Builder().setContext( this ).setMessage( "Vui lòng đợi" ).setCancelable( false ).build();
+
+        themMon.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 waiting.show();
-                final String ten  =   tenMon.getText().toString();
+                final String ten = tenMon.getText().toString();
                 final String stringGia = giaMon.getText().toString();
 
-                if(ten.isEmpty()|| stringGia.isEmpty()){
+                if (ten.isEmpty() || stringGia.isEmpty() || selectFoodCategory.isEmpty() ) {
                     waiting.dismiss();
-                    Toast.makeText(AddFoodActivity.this, "Vui lòng nhập đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    final long gia    =   Long.parseLong(stringGia);
+                    Toast.makeText( AddFoodActivity.this, "Vui lòng nhập đầy đủ thông tin ", Toast.LENGTH_SHORT ).show();
+                } else {
+                    final long gia = Long.parseLong( stringGia );
                     Calendar calendar = Calendar.getInstance();
-                    final String tenhinh="image"+calendar.getTimeInMillis();
-                    final StorageReference mountainsRef = storageRef.child(tenhinh+".png");
-                    image.setDrawingCacheEnabled(true);
+                    final String tenhinh = "image" + calendar.getTimeInMillis();
+                    final StorageReference mountainsRef = storageRef.child( tenhinh + ".png" );
+                    image.setDrawingCacheEnabled( true );
                     image.buildDrawingCache();
 
                     Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    bitmap.compress( Bitmap.CompressFormat.PNG, 100, baos );
                     byte[] data = baos.toByteArray();
 
-                    final UploadTask uploadTask = mountainsRef.putBytes(data);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                    final UploadTask uploadTask = mountainsRef.putBytes( data );
+                    uploadTask.addOnFailureListener( new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             // Handle unsuccessful uploads
                         }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    } ).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             // get downloadUrl
@@ -123,7 +139,7 @@ public class AddFoodActivity extends AppCompatActivity {
                                     // Continue with the task to get the download URL
                                     return mountainsRef.getDownloadUrl();
                                 }
-                            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            } ).addOnCompleteListener( new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     if (task.isSuccessful()) {
@@ -131,43 +147,51 @@ public class AddFoodActivity extends AppCompatActivity {
                                         link = task.getResult().toString();
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                         String IDQuan = user.getUid();
-                                        MonAn Mon= new MonAn(user.getDisplayName(),IDQuan,ten,link,gia,1);
+
+                                        MonAn Mon = new MonAn( user.getDisplayName(), IDQuan, ten, link, gia, 1 );
                                         DatabaseReference refData = FirebaseDatabase.getInstance().getReference();
-                                        refData.child("QuanAn").child(IDQuan).child(ten).setValue(Mon);
-                                        Toast.makeText(AddFoodActivity.this, "Thêm món ăn thành công", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(AddFoodActivity.this, ViewListFoodActivity.class));
+                                        refData.child( "QuanAn" ).child( IDQuan ).child( selectFoodCategory ).child( ten ).setValue( Mon );
+                                        Toast.makeText( AddFoodActivity.this, "Thêm món ăn thành công", Toast.LENGTH_SHORT ).show();
+                                        Intent intent = new Intent( AddFoodActivity.this, ViewListFoodActivity.class );
+                                        intent.putExtra( "foodCategoryID", selectFoodCategory );
+                                        startActivity( intent );
+
+//                                        startActivity( new Intent( AddFoodActivity.this, ViewListFoodActivity.class ) );
                                     } else {
-                                        Toast.makeText(AddFoodActivity.this, "Thêm không thành công", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText( AddFoodActivity.this, "Thêm không thành công", Toast.LENGTH_SHORT ).show();
                                     }
                                 }
-                            });
+                            } );
                         }
-                    });
+                    } );
 
 
                 }
 
             }
-        });
+        } );
 
     }
 
+
     private void ShowFoodCategory() {
-        refData.child("FoodCatalogue").addValueEventListener( new ValueEventListener() {
+        refData.child( "FoodCatalogue" ).addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
-                    FoodCatalogue titlename = dataSnapshot1.getValue( FoodCatalogue.class);
-                    list.add(titlename.getName());
+                list.clear();
+                for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                    FoodCatalogue foodCatalogue = dataSnapshot1.getValue( FoodCatalogue.class );
+                    list.add( foodCatalogue.getName() );
                 }
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddFoodActivity.this, android.R.layout.simple_spinner_item, list);
-                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(arrayAdapter);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( AddFoodActivity.this, android.R.layout.simple_spinner_item, list );
+//                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                arrayAdapter.setDropDownViewResource( R.layout.spinner_list );
+                spinner.setAdapter( arrayAdapter );
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AddFoodActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText( AddFoodActivity.this, error.getMessage(), Toast.LENGTH_LONG ).show();
             }
         } );
     }
@@ -175,26 +199,26 @@ public class AddFoodActivity extends AppCompatActivity {
     // chọn ảnh từ file
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode==REQUEST_CODE_FOLDER && resultCode == RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CODE_FOLDER && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
             try {
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                image.setImageBitmap(bitmap);
-            } catch(FileNotFoundException e){
+                InputStream inputStream = getContentResolver().openInputStream( uri );
+                Bitmap bitmap = BitmapFactory.decodeStream( inputStream );
+                image.setImageBitmap( bitmap );
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult( requestCode, resultCode, data );
     }
 
-    private void AnhXa(){
+    private void AnhXa() {
 
-        themMon = findViewById(R.id.btnThemMonLayoutThemMon);
-        folder  = findViewById(R.id.btnfolder);
-        tenMon  = findViewById(R.id.edtTenMon);
-        giaMon  = findViewById(R.id.edtGiaMon);
-        image   = findViewById(R.id.ivImage);
-        spinner = (Spinner)findViewById(R.id.spinnerFoodCategory);
+        themMon = findViewById( R.id.btnThemMonLayoutThemMon );
+        folder = findViewById( R.id.btnfolder );
+        tenMon = findViewById( R.id.edtTenMon );
+        giaMon = findViewById( R.id.edtGiaMon );
+        image = findViewById( R.id.ivImage );
+        spinner = (Spinner) findViewById( R.id.spinnerFoodCategory );
     }
 }
