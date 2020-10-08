@@ -12,9 +12,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -24,8 +26,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -35,7 +40,9 @@ import com.nasugar.orderfood.model.MonAn;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 
@@ -45,15 +52,36 @@ public class AddFoodActivity extends AppCompatActivity {
     private ImageView image;
     private int REQUEST_CODE_FOLDER = 123;
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    DatabaseReference refData = FirebaseDatabase.getInstance().getReference();
+    final StorageReference storageRef = storage.getReferenceFromUrl("gs://orderfood-f6895.appspot.com//Food_Images");
     private String link ;
     AlertDialog waiting;
+    Spinner spinner;
+    final List<String> list = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_add_food );
-
-        final StorageReference storageRef = storage.getReferenceFromUrl("gs://orderfood-f6895.appspot.com//Food_Images");
         AnhXa();
+
+        refData.child("FoodCatalogue").addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
+                    FoodCategory titlename = dataSnapshot1.getValue( FoodCategory.class);
+                    list.add(titlename.getName());
+                }
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddFoodActivity.this, android.R.layout.simple_spinner_item, list);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(arrayAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AddFoodActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        } );
+
         waiting =  new SpotsDialog.Builder().setContext(this).setMessage("Vui lòng đợi").setCancelable(false).build();
 
         folder.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +141,7 @@ public class AddFoodActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     if (task.isSuccessful()) {
-//                                        waiting.dismiss();
+                                        waiting.dismiss();
                                         link = task.getResult().toString();
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                         String IDQuan = user.getUid();
@@ -122,7 +150,6 @@ public class AddFoodActivity extends AppCompatActivity {
                                         refData.child("QuanAn").child(IDQuan).child(ten).setValue(Mon);
                                         Toast.makeText(AddFoodActivity.this, "Thêm món ăn thành công", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(AddFoodActivity.this, ViewListFoodActivity.class));
-
                                     } else {
                                         Toast.makeText(AddFoodActivity.this, "Thêm không thành công", Toast.LENGTH_SHORT).show();
                                     }
@@ -161,5 +188,6 @@ public class AddFoodActivity extends AppCompatActivity {
         tenMon  = findViewById(R.id.edtTenMon);
         giaMon  = findViewById(R.id.edtGiaMon);
         image   = findViewById(R.id.ivImage);
+        spinner = (Spinner)findViewById(R.id.spinnerFoodCategory);
     }
 }
