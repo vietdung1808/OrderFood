@@ -1,6 +1,7 @@
 package com.nasugar.orderfood.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -8,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -83,7 +86,6 @@ public class FoodActivity extends AppCompatActivity {
                         cart.setSoluong(cart.getSoluong() + 1);
                         cart.setTongTien(cart.getSoluong() * cart.getGiaMon());
                         cartItem = cart;
-//                        database.child(cart.getTenMon()).setValue(cart);
                         isExits = true;
                         break;
                     }
@@ -117,7 +119,6 @@ public class FoodActivity extends AppCompatActivity {
                     Cart cart = item.getValue(Cart.class);
                     mCartList.add(cart);
                 }
-
             }
 
             @Override
@@ -158,4 +159,13 @@ public class FoodActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_cart, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_cart) {
+            startActivity(new Intent(FoodActivity.this, CartActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <LinearLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="5">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:id="@+id/imageView_cart_food"
+                android:layout_height="150dp"
+                android:scaleType="fitCenter" />
+            <LinearLayout
+                android:gravity="top"
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:orientation="vertical"
+                android:layout_width="@dimen/size20dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <TextView
+                    android:textColor="@color/colorPrimary_Dark"
+                    android:id="@+id/textView_cart_food_foodname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:height="@dimen/size30dp"
+                    tools:text="Ten mon an"
+                    android:textSize="@dimen/size20dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textView_cart_food_price"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_height="wrap_content"
+                    android:height="@dimen/size30dp"
+                    tools:text="100,000 VNĐ"
+                    android:textSize="@dimen/size20dp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:paddingBottom="8dp"
+                    android:gravity="bottom |center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_dau_tru_24"
+                        android:background="@null"
+                        android:id="@+id/imageButton_cart_tru"/>
+                    <TextView
+                        android:gravity="center"
+                        android:text="0"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/custom_textview_cart_quantity"
+                        android:layout_width="@dimen/size40dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/textView_cart_quantity"/>
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_dau_cong_24"
+                        android:background="@null"
+                        android:id="@+id/imageButton_cart_cong"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

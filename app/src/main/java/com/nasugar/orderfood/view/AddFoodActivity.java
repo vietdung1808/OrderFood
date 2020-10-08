@@ -35,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nasugar.orderfood.R;
+import com.nasugar.orderfood.model.FoodCatalogue;
 import com.nasugar.orderfood.model.MonAn;
 
 import java.io.ByteArrayOutputStream;
@@ -68,7 +69,7 @@ public class AddFoodActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
-                    FoodCategory titlename = dataSnapshot1.getValue( FoodCategory.class);
+                    FoodCatalogue titlename = dataSnapshot1.getValue( FoodCatalogue.class);
                     list.add(titlename.getName());
                 }
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddFoodActivity.this, android.R.layout.simple_spinner_item, list);

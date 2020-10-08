@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_order"/>
+        <TextView
+            android:paddingLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xác nhận đơn hàng"
+            android:textColor="@color/colorBlack"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vui lòng điền thông tin"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp"
+        android:textStyle="italic"/>
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/textview_diachigiaohang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:hint="Địa chỉ giao hàng"
+        android:text=""
+        android:inputType="text"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:met_baseColor="@color/colorPrimary"
+        app:met_floatingLabel="highlight"
+        app:met_primaryColor="@color/colorPrimary"
+        app:met_singleLineEllipsis="true"
+        />
+
+
+    <TextView
+        android:id="@+id/textview_confirmCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/textview_cancelCart"
+        android:layout_toLeftOf="@+id/textview_confirmCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="35dp"
+        android:layout_alignParentBottom="true"
+        android:text="Hủy"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        />
+
+</RelativeLayout>
