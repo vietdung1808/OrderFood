@@ -38,6 +38,7 @@ import com.nasugar.orderfood.model.Orders;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class CartActivity extends AppCompatActivity {
     FirebaseUser user;
 
     private DecimalFormat decimalFormat = new DecimalFormat("###,### VNĐ");
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,23 +116,29 @@ public class CartActivity extends AppCompatActivity {
                             Toast.makeText(CartActivity.this, "Vui lòng nhập địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        String orderDate = dateFormat.format(new Date());
+                        Calendar calendar = Calendar.getInstance();
+
+                        String orderId = String.valueOf(calendar.getTimeInMillis());
                         Orders orders = new Orders(
                                 user.getUid(),
-                                orderDate,
+                                dateFormat.format(calendar.getTime()),
                                 address,
                                 tvTongTien.getText().toString(),
                                 0,
                                 mCartList
                         );
 
-                        DatabaseReference database = myRef.child("Orders/" + user.getUid() + "/" + orderDate);
+                        DatabaseReference database = myRef.child("Orders/" + user.getUid() + "/" + orderId);
                         database.setValue(orders).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+                                    //remove cart
+                                    myRef.child("Carts/" + user.getUid()).setValue(null);
+
                                     Toast.makeText(CartActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
                                     dialogConfirm.dismiss();
+                                    startActivity(new Intent(CartActivity.this, CustomerActivity.class));
                                 } else {
                                     Toast.makeText(CartActivity.this, "Đặt hàng thất bại", Toast.LENGTH_SHORT).show();
                                 }

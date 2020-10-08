@@ -135,6 +135,7 @@ public class HomeFragment extends Fragment {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mFoodCatalogueList.clear();
                 for (DataSnapshot item : snapshot.getChildren()) {
                     FoodCatalogue foodCatalogue = item.getValue(FoodCatalogue.class);
                     foodCatalogue.setId(item.getKey());
