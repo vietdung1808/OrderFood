@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.nasugar.orderfood.Adapter.RestaurentViewOrderAdapter;
+import com.nasugar.orderfood.adapter.RestaurentViewOrderAdapter;
 import com.nasugar.orderfood.R;
 import com.nasugar.orderfood.model.Order;
 
