@@ -54,19 +54,22 @@ public class RestaurantViewOrderActivity extends AppCompatActivity {
         });
 
 
-//        listOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Orders order = arrOrder.get(position);
-//
-//                Intent OrderDetail = new Intent(RestaurantViewOrderActivity.this, DetailOrderActivity.class);
-//                //gửi FoodId (ten của Food) và id quán đến activity FoodDetail
-//                OrderDetail.putExtra("FoodID",order.getTenMon());
-//                OrderDetail.putExtra("CustomerID",order.getUserID());
-//                // mở activity  foodDetail
-//                startActivity(OrderDetail);
-//            }
-//        });
+        listOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Orders order = arrOrder.get(position);
+
+                Intent OrderDetail = new Intent(RestaurantViewOrderActivity.this, DetailOrderActivity.class);
+                //gửi FoodId (ten của Food) và id quán đến activity FoodDetail
+                OrderDetail.putExtra("TotalAmount",order.getTotalAmount());
+                OrderDetail.putExtra("CustomerName",order.getUserName());
+                OrderDetail.putExtra("OrderID",order.getOrderId());
+                OrderDetail.putExtra("Status",order.getStatus());
+                OrderDetail.putExtra("UserID",order.getUserId());
+                // mở activity  foodDetail
+                startActivity(OrderDetail);
+            }
+        });
 
     }
 
@@ -86,7 +89,8 @@ public class RestaurantViewOrderActivity extends AppCompatActivity {
                     for (DataSnapshot ds1 : ds.getChildren()) {
                         if (ds1.getValue() != null) {
                             Orders orders = ds1.getValue( Orders.class );
-                            if (orders.getStatus() == 0) {
+                            /*0: Chờ xử lý; 1: đang giao; 2: đã giao; 3: Hủy*/
+                            if (orders.getStatus() == 0 || orders.getStatus() == 1) {
                                 arrOrder.add( orders );
                                 adapter.notifyDataSetChanged();
 

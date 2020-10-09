@@ -53,19 +53,35 @@ public class RestaurentViewOrderAdapter extends BaseAdapter {
         view = inflater.inflate(layout, null);
 
         //anh xa view
-        TextView diachi = (TextView) view.findViewById( R.id.res_vieworder_item_address);
-        TextView tenKH = (TextView) view.findViewById(R.id.res_vieworder_item_name_customer);
-        TextView tongtien = (TextView) view.findViewById(R.id.res_vieworder_item_tong_tien);
-        TextView tinhtrang = (TextView) view.findViewById(R.id.res_vieworder_item_tinh_trang);
-//        ImageView hinh = (ImageView) view.findViewById(R.id.res_vieworder_item_image);
+        TextView diachi = (TextView) view.findViewById( R.id.textview_Customer_orders_address);
+        TextView tenKH = (TextView) view.findViewById(R.id.textview_Customer_Name);
+        TextView tongtien = (TextView) view.findViewById(R.id.textview_Customer_orders_amount);
+        TextView tinhtrang = (TextView) view.findViewById(R.id.textview_Customer_orders_status);
+        TextView ngaydathang = (TextView) view.findViewById(R.id.textview_Customer_orders_date);
 
 
         //set value
         Orders order = listOrder.get(position);
         diachi.setText(order.getAddress());
-//        tenKH.setText((order.getUserId()));
-//        tenKH.setText(user.getDisplayName());
+        tenKH.setText(order.getUserName());
         tongtien.setText(order.getTotalAmount());
+        ngaydathang.setText( order.getOrderDate() );
+        switch (order.getStatus()) {
+            case 0:
+                tinhtrang.setText( "Chờ xử lý" );
+                break;
+            case 1:
+                tinhtrang.setText( "Đang giao hàng" );
+                break;
+            case 2:
+                tinhtrang.setText( "Đã giao hàng" );
+                break;
+            case 3:
+                tinhtrang.setText( "Hủy đơn hàng" );
+                break;
+
+        }
+
 //        Picasso.with(context).load(order.getLinkAnh()).into(hinh);
 
         return view;
