@@ -38,7 +38,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardHolder> {
     @Override
     public CardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.cart_row, parent, false);
+        View view = layoutInflater.inflate(R.layout.row_cart, parent, false);
         return new CardHolder(view);
     }
 

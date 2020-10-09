@@ -46,6 +46,8 @@ public class FoodActivity extends AppCompatActivity {
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user;
     List<Cart> mCartList;
+    String catalogueName;
+    String restaurantId = "XQG2SnckHHgfuOO6VlxbQMYQ9Ir2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,8 @@ public class FoodActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         FoodCatalogue foodCatalogue = (FoodCatalogue) intent.getSerializableExtra("FoodCatalogue");
-        this.setTitle(foodCatalogue.getName());
+        catalogueName = foodCatalogue.getName();
+        this.setTitle(catalogueName);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvFood = findViewById(R.id.recycler_view_food);
@@ -82,7 +85,7 @@ public class FoodActivity extends AppCompatActivity {
                 DatabaseReference database = myRef.child("Carts/" + user.getUid());
                 Cart cartItem = new Cart();
                 boolean isExits = false;
-                for (Cart cart: mCartList) {
+                for (Cart cart : mCartList) {
                     if (cart.getTenMon().equals(monAn.getTenMon())) {
                         cart.setSoluong(cart.getSoluong() + 1);
                         cart.setTongTien(cart.getSoluong() * cart.getGiaMon());
@@ -132,16 +135,15 @@ public class FoodActivity extends AppCompatActivity {
 
     private void getItemData() {
 
-        DatabaseReference database = myRef.child("QuanAn");
+        DatabaseReference database = myRef.child("QuanAn/" + restaurantId + "/" + catalogueName);
 
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemList : snapshot.getChildren()) {
-                    for (DataSnapshot item : itemList.getChildren()) {
-                        MonAn monAn = item.getValue(MonAn.class);
-                        mMonAnList.add(monAn);
-                    }
+                mMonAnList.clear();
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    MonAn monAn = item.getValue(MonAn.class);
+                    mMonAnList.add(monAn);
                 }
                 Log.d(TAG, "onDataChange: " + mMonAnList.size());
                 mFoodAdapter.notifyDataSetChanged();

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,18 +31,29 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.nasugar.orderfood.Notifications.APIService;
+import com.nasugar.orderfood.Notifications.MyResponse;
+import com.nasugar.orderfood.Notifications.Notification;
+import com.nasugar.orderfood.Notifications.Sender;
 import com.nasugar.orderfood.R;
 import com.nasugar.orderfood.adapter.CartAdapter;
 import com.nasugar.orderfood.interfaces.OnCartListener;
 import com.nasugar.orderfood.model.Cart;
 import com.nasugar.orderfood.model.Orders;
+import com.nasugar.orderfood.model.Token;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity {
     RecyclerView rcvCart;
@@ -51,14 +65,16 @@ public class CartActivity extends AppCompatActivity {
 
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user;
+    APIService mService;
 
     private DecimalFormat decimalFormat = new DecimalFormat("###,### VNĐ");
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mapViews();
         init();
@@ -115,23 +131,34 @@ public class CartActivity extends AppCompatActivity {
                             Toast.makeText(CartActivity.this, "Vui lòng nhập địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        String orderDate = dateFormat.format(new Date());
+                        Calendar calendar = Calendar.getInstance();
+
+                        String orderId = String.valueOf(calendar.getTimeInMillis());
                         Orders orders = new Orders(
+                                orderId,
                                 user.getUid(),
-                                orderDate,
+                                user.getDisplayName(),
+                                dateFormat.format(calendar.getTime()),
                                 address,
                                 tvTongTien.getText().toString(),
                                 0,
                                 mCartList
                         );
 
-                        DatabaseReference database = myRef.child("Orders/" + user.getUid() + "/" + orderDate);
+                        DatabaseReference database = myRef.child("Orders/" + user.getUid() + "/" + orderId);
                         database.setValue(orders).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+                                    //sent notification
+                                    sendNotification(user.getDisplayName(), orderId);
+
+                                    //remove cart
+                                    myRef.child("Carts/" + user.getUid()).setValue(null);
+
                                     Toast.makeText(CartActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
                                     dialogConfirm.dismiss();
+                                    startActivity(new Intent(CartActivity.this, CustomerActivity.class));
                                 } else {
                                     Toast.makeText(CartActivity.this, "Đặt hàng thất bại", Toast.LENGTH_SHORT).show();
                                 }
@@ -156,6 +183,7 @@ public class CartActivity extends AppCompatActivity {
         rcvCart.setAdapter(mCartAdapter);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
 
     }
 
@@ -189,6 +217,50 @@ public class CartActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void sendNotification(final String nameCustomer, String orderId){
+//        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Tokens/XQG2SnckHHgfuOO6VlxbQMYQ9Ir2");
+//        database.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Token token = snapshot.getValue(Token.class);
+//                Notification notification = new Notification(nameCustomer + " vừa đặt món ăn từ quán của bạn \nOrder ID: " + orderId ,"Có đơn hàng mới");
+//                Sender content = new Sender(token.getToken(), notification);
+//
+//                mService.sendNotification(content).enqueue(new Callback<MyResponse>() {
+//                    @Override
+//                    public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+//                        if (response.code() == 200) {
+//                            if (response.body().success == 1) {
+//                                Toast.makeText(CartActivity.this, "thành công", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(CartActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<MyResponse> call, Throwable t) {
+//                        Log.e("Error", t.getMessage());
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 }

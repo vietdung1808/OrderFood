@@ -3,7 +3,9 @@ package com.nasugar.orderfood.model;
 import java.util.List;
 
 public class Orders {
+    private String orderId;
     private String userId;
+    private String userName;
     private String orderDate;
     private String address;
     private String totalAmount;
@@ -13,8 +15,10 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(String userId, String orderDate, String address, String totalAmount, int status, List<Cart> foodList) {
+    public Orders(String orderId, String userId, String userName, String orderDate, String address, String totalAmount, int status, List<Cart> foodList) {
+        this.orderId = orderId;
         this.userId = userId;
+        this.userName = userName;
         this.orderDate = orderDate;
         this.address = address;
         this.totalAmount = totalAmount;
@@ -22,8 +26,24 @@ public class Orders {
         this.foodList = foodList;
     }
 
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
     public String getUserId() {
         return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setUserId(String userId) {
