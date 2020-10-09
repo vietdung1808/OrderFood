@@ -8,20 +8,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nasugar.orderfood.R;
 import com.nasugar.orderfood.model.Order;
+import com.nasugar.orderfood.model.Orders;
 import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
 
 public class RestaurentViewOrderAdapter extends BaseAdapter {
-
+//    FirebaseUser user = FirebaseAuth.getInstance();
     private Context context;
     private int layout;
-    private List<Order> listOrder;
+    private List<Orders> listOrder;
 
-    public RestaurentViewOrderAdapter(Context context, int layout, List<Order> listOrder) {
+    public RestaurentViewOrderAdapter(Context context, int layout, List<Orders> listOrder) {
         this.context = context;
         this.layout = layout;
         this.listOrder = listOrder;
@@ -50,18 +53,20 @@ public class RestaurentViewOrderAdapter extends BaseAdapter {
         view = inflater.inflate(layout, null);
 
         //anh xa view
-        TextView tenMon = (TextView) view.findViewById( R.id.res_vieworder_item_name);
+        TextView diachi = (TextView) view.findViewById( R.id.res_vieworder_item_address);
         TextView tenKH = (TextView) view.findViewById(R.id.res_vieworder_item_name_customer);
-        TextView sdt = (TextView) view.findViewById(R.id.res_vieworder_item_sdt_customer);
-        ImageView hinh = (ImageView) view.findViewById(R.id.res_vieworder_item_image);
+        TextView tongtien = (TextView) view.findViewById(R.id.res_vieworder_item_tong_tien);
+        TextView tinhtrang = (TextView) view.findViewById(R.id.res_vieworder_item_tinh_trang);
+//        ImageView hinh = (ImageView) view.findViewById(R.id.res_vieworder_item_image);
 
 
         //set value
-        Order order = listOrder.get(position);
-        tenMon.setText(order.getTenMon());
-        tenKH.setText((order.getTenkhachhang()));
-        sdt.setText(order.getSdtKhachHang());
-        Picasso.with(context).load(order.getLinkAnh()).into(hinh);
+        Orders order = listOrder.get(position);
+        diachi.setText(order.getAddress());
+//        tenKH.setText((order.getUserId()));
+//        tenKH.setText(user.getDisplayName());
+        tongtien.setText(order.getTotalAmount());
+//        Picasso.with(context).load(order.getLinkAnh()).into(hinh);
 
         return view;
     }

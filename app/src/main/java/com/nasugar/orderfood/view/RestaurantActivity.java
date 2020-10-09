@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -40,6 +41,11 @@ public class RestaurantActivity extends AppCompatActivity {
     TextView tenQuan;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference( "User" ).child( user.getUid() );
+
+    @Override
+    public boolean moveDatabaseFrom(Context sourceContext, String name) {
+            return super.moveDatabaseFrom( sourceContext, name );
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

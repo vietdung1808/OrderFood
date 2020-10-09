@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.nasugar.orderfood.adapter.RestaurentViewOrderAdapter;
 import com.nasugar.orderfood.R;
 import com.nasugar.orderfood.model.Order;
+import com.nasugar.orderfood.model.Orders;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.Calendar;
 
 public class RestaurantViewOrderActivity extends AppCompatActivity {
     ListView listOrder;
-    ArrayList<Order> arrOrder;
+    ArrayList<Orders> arrOrder;
     RestaurentViewOrderAdapter adapter = null;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String userID = user.getUid();
@@ -53,24 +54,25 @@ public class RestaurantViewOrderActivity extends AppCompatActivity {
         });
 
 
-        listOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Order order = arrOrder.get(position);
-
-                Intent OrderDetail = new Intent(RestaurantViewOrderActivity.this, DetailOrderActivity.class);
-                //gửi FoodId (ten của Food) và id quán đến activity FoodDetail
-                OrderDetail.putExtra("FoodID",order.getTenMon());
-                OrderDetail.putExtra("CustomerID",order.getUserID());
-                // mở activity  foodDetail
-                startActivity(OrderDetail);
-            }
-        });
+//        listOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Orders order = arrOrder.get(position);
+//
+//                Intent OrderDetail = new Intent(RestaurantViewOrderActivity.this, DetailOrderActivity.class);
+//                //gửi FoodId (ten của Food) và id quán đến activity FoodDetail
+//                OrderDetail.putExtra("FoodID",order.getTenMon());
+//                OrderDetail.putExtra("CustomerID",order.getUserID());
+//                // mở activity  foodDetail
+//                startActivity(OrderDetail);
+//            }
+//        });
 
     }
 
     private void getInfoOrder(){
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Orders").child(userID);
+//        mDatabase = FirebaseDatabase.getInstance().getReference().child("Orders").child(userID);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Orders");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,20 +83,16 @@ public class RestaurantViewOrderActivity extends AppCompatActivity {
                 final String dateCurrent = dateFormat.format(c.getTime());
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    for( DataSnapshot ds1 : ds.getChildren()){
-                        if( ds1.getValue() != null){
-                            Order order = ds1.getValue(Order.class);
-                            int dayOrder = getDayTime(order.getDateTime());
-                            int dayCurrent = getDayTime(dateCurrent);
-                            if (dayCurrent == dayOrder) {
-                                if (order.getCheck() == 0) {  // if not confirm then add listview
-                                    arrOrder.add(order);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            } else {
-                                mDatabase.setValue(null);
+                    for (DataSnapshot ds1 : ds.getChildren()) {
+                        if (ds1.getValue() != null) {
+                            Orders orders = ds1.getValue( Orders.class );
+                            if (orders.getStatus() == 0) {
+                                arrOrder.add( orders );
+                                adapter.notifyDataSetChanged();
+
                             }
                         }
+
                     }
                 }
             }

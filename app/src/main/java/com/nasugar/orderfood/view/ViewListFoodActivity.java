@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -90,8 +91,9 @@ public class ViewListFoodActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         recyclerViewFood.setLayoutManager(layoutManager);
         recyclerViewFood.setItemAnimator(new DefaultItemAnimator());
-
-//        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(userID).child( foodCategoryID );
+        viewFoodAdapter = new ViewFoodAdapter(arrFood,getApplicationContext());
+        recyclerViewFood.setAdapter(viewFoodAdapter);
+//        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(userID).child( "Bánh ngọt" );
         mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(userID);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -99,15 +101,16 @@ public class ViewListFoodActivity extends AppCompatActivity {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     for (DataSnapshot ds1 : ds.getChildren()) {
                         if(ds1.getValue() != null) {
-                            food = ds.getValue(MonAn.class);
+                            food = ds1.getValue(MonAn.class);
                             arrFood.add(food);
+                            viewFoodAdapter.notifyDataSetChanged();
+//                            Log.d( "AAA", food.toString() );
                         }
                     }
                 }
-                viewFoodAdapter = new ViewFoodAdapter(arrFood,getApplicationContext());
-                recyclerViewFood.setAdapter(viewFoodAdapter);
+
                 //set animation
-                Common.runAnimation(recyclerViewFood);
+//                Common.runAnimation(recyclerViewFood);
             }
 
             @Override
@@ -122,6 +125,7 @@ public class ViewListFoodActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         final int pos = item.getGroupId();
         final String name = arrFood.get(pos).getTenMon();
+        foodCategoryID = arrFood.get( pos ).getFoodCategoryID();
         switch (item.getItemId()){
             case 121:
                 new AlertDialog.Builder(this)
@@ -173,7 +177,7 @@ public class ViewListFoodActivity extends AppCompatActivity {
         Button update = (Button) dialog.findViewById(R.id.btnUpdateFood);
         Button cancel = (Button) dialog.findViewById(R.id.btnCancelFood);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(user.getUid()).child(name);
+        mDatabase = FirebaseDatabase.getInstance().getReference("QuanAn").child(user.getUid()).child(foodCategoryID).child( name );
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
