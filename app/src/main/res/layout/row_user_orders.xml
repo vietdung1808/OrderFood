@@ -43,7 +43,7 @@
                 android:textSize="@dimen/size15dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Địa chỉ giao hàng:"/>
+                android:text="Địa chỉ giao hàng :"/>
             <TextView
                 android:id="@+id/textview_user_orders_address"
                 android:textSize="@dimen/size15dp"
@@ -58,7 +58,7 @@
                 android:textSize="@dimen/size15dp"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:text="Ngày đặt hàng:"/>
+                android:text="Ngày đặt hàng :"/>
             <TextView
                 android:id="@+id/textview_user_orders_orderdate"
                 android:textSize="@dimen/size15dp"
@@ -73,7 +73,7 @@
                 android:textSize="@dimen/size15dp"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:text="Thành tiền"/>
+                android:text="Thành tiền :"/>
             <TextView
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"

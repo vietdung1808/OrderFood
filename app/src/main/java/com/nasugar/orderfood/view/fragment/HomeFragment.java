@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+
     RecyclerView rcvFoodCatalogue;
     List<FoodCatalogue> mFoodCatalogueList;
     FoodCatalogueAdapter mFoodCatalogueAdapter;
