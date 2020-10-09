@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nasugar.orderfood.R;
 import com.nasugar.orderfood.view.fragment.HomeFragment;
 import com.nasugar.orderfood.view.fragment.ProfileFragment;
+import com.nasugar.orderfood.view.fragment.UserOrdersFragment;
 
 public class CustomerActivity extends AppCompatActivity {
 
@@ -36,6 +37,9 @@ public class CustomerActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_profile:
                     loadFragment(new ProfileFragment());
+                    return true;
+                case R.id.navigation_orders:
+                    loadFragment(new UserOrdersFragment());
                     return true;
             }
             return false;

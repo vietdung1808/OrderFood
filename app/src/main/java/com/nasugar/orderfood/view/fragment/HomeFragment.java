@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.nasugar.orderfood.adapter.FoodCatalogueAdapter;
 import com.nasugar.orderfood.interfaces.OnFoodCatalogueListener;
 import com.nasugar.orderfood.model.Banner;
 import com.nasugar.orderfood.model.FoodCatalogue;
+import com.nasugar.orderfood.view.CartActivity;
 import com.nasugar.orderfood.view.FoodActivity;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment {
     RecyclerView rcvFoodCatalogue;
     List<FoodCatalogue> mFoodCatalogueList;
     FoodCatalogueAdapter mFoodCatalogueAdapter;
+    ImageButton btnCart;
 
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
@@ -48,8 +51,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        rcvFoodCatalogue = view.findViewById(R.id.recycler_food_catalogue);
-        sliderBanner = view.findViewById(R.id.slider);
+
+        mapViews(view);
 
         mFoodCatalogueList = new ArrayList<>();
         mFoodCatalogueAdapter = new FoodCatalogueAdapter(getActivity(), mFoodCatalogueList);
@@ -67,6 +70,12 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    private void mapViews(View view) {
+        rcvFoodCatalogue = view.findViewById(R.id.recycler_food_catalogue);
+        sliderBanner = view.findViewById(R.id.slider);
+        btnCart = view.findViewById(R.id.imageView_home_cart);
+    }
+
     private void setOnListener() {
 
         mFoodCatalogueAdapter.setOnItemClickListener(new OnFoodCatalogueListener() {
@@ -75,6 +84,13 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getContext(), FoodActivity.class);
                 intent.putExtra("FoodCatalogue", foodCatalogue);
                 startActivity(intent);
+            }
+        });
+
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CartActivity.class));
             }
         });
     }

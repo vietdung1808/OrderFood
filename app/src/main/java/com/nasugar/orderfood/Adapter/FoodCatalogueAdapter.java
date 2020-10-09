@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +33,7 @@ public class FoodCatalogueAdapter extends RecyclerView.Adapter<FoodCatalogueAdap
     @Override
     public FoodCatalogueHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.food_catalogue_row, parent, false);
+        View view = layoutInflater.inflate(R.layout.row_food_catalogue, parent, false);
         return new FoodCatalogueHolder(view);
     }
 

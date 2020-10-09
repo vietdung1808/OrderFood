@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="8dp"
+    android:background="@color/colorWhite"
+    android:padding="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_order"/>
+        <TextView
+            android:textSize="@dimen/size15dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textview_user_orders_orderid"
+            tools:text="12312312312"/>
+        <TextView
+            android:textColor="@color/Red"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textview_user_orders_status"
+            tools:text="Chờ xử lý"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/size15dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ giao hàng:"/>
+            <TextView
+                android:id="@+id/textview_user_orders_address"
+                android:textSize="@dimen/size15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="123 Abcd"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/size15dp"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="Ngày đặt hàng:"/>
+            <TextView
+                android:id="@+id/textview_user_orders_orderdate"
+                android:textSize="@dimen/size15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="10/10/2010 12:00:00"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/size15dp"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="Thành tiền"/>
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/textview_user_orders_amount"
+                android:textSize="@dimen/size15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="100.000 VND"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
