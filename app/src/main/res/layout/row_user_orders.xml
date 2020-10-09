@@ -6,10 +6,10 @@
     android:orientation="vertical"
     android:layout_marginBottom="8dp"
     android:background="@color/colorWhite"
-    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:background="@color/colorSecondaryDark"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,6 +25,7 @@
             android:id="@+id/textview_user_orders_orderid"
             tools:text="12312312312"/>
         <TextView
+            android:paddingRight="8dp"
             android:textColor="@color/Red"
             android:gravity="right"
             android:layout_width="match_parent"
@@ -33,6 +34,7 @@
             tools:text="Chờ xử lý"/>
     </LinearLayout>
     <LinearLayout
+        android:padding="8dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nasugar.orderfood.R;
+import com.nasugar.orderfood.interfaces.OnUserOrderListener;
 import com.nasugar.orderfood.model.Orders;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.UserOrdersHolder> {
     private Context mContext;
     private List<Orders> mOrdersList;
+    private OnUserOrderListener mListener;
 
     public UserOrdersAdapter(Context mContext, List<Orders> mOrdersList) {
         this.mContext = mContext;
@@ -68,7 +70,17 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.Us
             tvStatus = itemView.findViewById(R.id.textview_user_orders_status);
             tvAddress = itemView.findViewById(R.id.textview_user_orders_address);
             tvAmount = itemView.findViewById(R.id.textview_user_orders_amount);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemClick(tvOrderId.getText().toString());
+                }
+            });
         }
     }
 
+    public void setOnItemClick(OnUserOrderListener listener) {
+        this.mListener = listener;
+    }
 }

@@ -12,11 +12,6 @@
         android:icon="@drawable/ic_list_24"
         android:title="@string/title_deliveryList" />
 
-    <item
-        android:enabled="true"
-        android:id="@+id/navigation_notification"
-        android:icon="@drawable/ic_baseline_notifications_24"
-        android:title="@string/title_notification" />
 
     <item
         android:enabled="true"

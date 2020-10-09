@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#0099ff</color>
+    <color name="colorPrimaryLight">#81b9bf</color>
     <color name="colorPrimaryDark">#0099ff</color>
     <color name="colorPrimary_Dark">#124717</color>
     <color name="bgBottomNavigation">#0099ff</color>
-    <color name="colorSecondary">#03DAC6</color>
-    <color name="colorSecondaryLight">#EFE9E9</color>
+    <color name="colorSecondary">#a7ffeb</color>
+    <color name="colorSecondaryLight">#dbffff</color>
+    <color name="colorSecondaryDark">#75ccb9</color>
 
     <color name="colorAccent">#2B6D2D</color>
     <color name="colorWhite">#FFF</color>

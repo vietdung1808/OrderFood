@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="5">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:id="@+id/imageView_user_order_detail_food"
+            android:layout_height="120dp"
+            android:scaleType="fitXY" />
+        <LinearLayout
+            android:gravity="top"
+            android:paddingTop="16dp"
+            android:orientation="vertical"
+            android:layout_width="@dimen/size20dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/colorPrimary_Dark"
+                android:id="@+id/textView_user_order_detail_foodname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="@dimen/size30dp"
+                tools:text="Ten mon an"
+                android:textSize="@dimen/size20dp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/textView_user_order_detail_price"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="100,000 VNĐ" />
+                <TextView
+                    android:id="@+id/textView_user_order_detail_quantity"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="x 1" />
+                <TextView
+                    android:id="@+id/textView_user_order_detail_amount"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_height="wrap_content"
+                    android:height="@dimen/size30dp"
+                    tools:text="100,000 VNĐ"
+                    android:textSize="@dimen/size20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

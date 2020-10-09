@@ -17,6 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".view.UserOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity
             android:name=".view.FoodActivity"
             android:parentActivityName=".view.CustomerActivity"
             android:screenOrientation="portrait"

@@ -67,7 +67,7 @@ public class CartActivity extends AppCompatActivity {
     FirebaseUser user;
     APIService mService;
 
-    private DecimalFormat decimalFormat = new DecimalFormat("###,### VNĐ");
+    private DecimalFormat decimalFormat = new DecimalFormat("₫ ###,###");
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     @Override

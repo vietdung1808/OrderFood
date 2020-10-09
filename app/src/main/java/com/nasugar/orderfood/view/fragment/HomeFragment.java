@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
     //Slider
     HashMap<String, String> imageList;
     SliderLayout sliderBanner;
+    private ActionBar toolBar;
 
     @Nullable
     @Override
@@ -54,6 +57,15 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mapViews(view);
+        init(view);
+        getItemData();
+        setupSlider();
+        setOnListener();
+
+        return view;
+    }
+
+    private void init(View view) {
 
         mFoodCatalogueList = new ArrayList<>();
         mFoodCatalogueAdapter = new FoodCatalogueAdapter(getActivity(), mFoodCatalogueList);
@@ -63,12 +75,6 @@ public class HomeFragment extends Fragment {
         rcvFoodCatalogue.setItemAnimator(new DefaultItemAnimator());
         rcvFoodCatalogue.setAdapter(mFoodCatalogueAdapter);
         rcvFoodCatalogue.setNestedScrollingEnabled(false);
-
-        getItemData();
-        setupSlider();
-        setOnListener();
-
-        return view;
     }
 
     private void mapViews(View view) {

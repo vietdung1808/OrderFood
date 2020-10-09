@@ -26,7 +26,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     private OnFoodListener mListener;
 
 
-    private DecimalFormat decimalFormat = new DecimalFormat("###,### VNĐ");
+    private DecimalFormat decimalFormat = new DecimalFormat("₫ ###,###");
 
     public FoodAdapter(Context mContext, List<MonAn> monAnList) {
         this.mContext = mContext;

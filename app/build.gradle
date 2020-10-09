@@ -68,4 +68,6 @@ dependencies {
     implementation 'com.daimajia.slider:library:1.1.5@aar'
 
     implementation 'info.hoang8f:fbutton:1.0.5'
+
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

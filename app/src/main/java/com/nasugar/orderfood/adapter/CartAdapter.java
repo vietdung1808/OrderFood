@@ -27,7 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardHolder> {
     private List<Cart> mCartList;
     private OnCartListener mListener;
 
-    private DecimalFormat decimalFormat = new DecimalFormat("###,### VNĐ");
+    private DecimalFormat decimalFormat = new DecimalFormat("₫ ###,###");
 
     public CartAdapter(Context mContext, List<Cart> mCartList) {
         this.mContext = mContext;

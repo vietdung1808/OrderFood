@@ -16,7 +16,7 @@
                 android:layout_weight="3"
                 android:id="@+id/imageView_cart_food"
                 android:layout_height="150dp"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitXY" />
             <LinearLayout
                 android:gravity="top"
                 android:paddingLeft="16dp"
