@@ -147,7 +147,7 @@ public class AddFoodActivity extends AppCompatActivity {
                                         link = task.getResult().toString();
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                         String IDQuan = user.getUid();
-                                        MonAn Mon = new MonAn( user.getDisplayName(), IDQuan, ten, link, gia, 1 );
+                                        MonAn Mon = new MonAn(user.getDisplayName(), IDQuan, ten, link, gia, 1 , selectFoodCategory);
                                         DatabaseReference refData = FirebaseDatabase.getInstance().getReference();
                                         refData.child( "QuanAn" ).child( IDQuan ).child( selectFoodCategory ).child( ten ).setValue( Mon );
                                         Toast.makeText( AddFoodActivity.this, "Thêm món ăn thành công", Toast.LENGTH_SHORT ).show();

@@ -1,6 +1,7 @@
 package com.nasugar.orderfood.model;
 
 public class MonAn {
+    private String foodCategoryID;
     private String tenQuan;
     private String idQuan;
     private String tenMon;
@@ -11,15 +12,23 @@ public class MonAn {
     public MonAn() {
     }
 
-    public MonAn(String tenQuan, String idQuan, String tenMon, String linkAnh, long giaMon, int tinhTrang) {
+    public MonAn(String tenQuan, String idQuan, String tenMon, String linkAnh, long giaMon, int tinhTrang, String foodCategoryID) {
         this.tenQuan = tenQuan;
         this.idQuan = idQuan;
         this.tenMon = tenMon;
         this.linkAnh = linkAnh;
         this.giaMon = giaMon;
         this.tinhTrang = tinhTrang;
+        this.foodCategoryID = foodCategoryID;
+    }
+    public String getFoodCategoryID() {
+        return foodCategoryID;
     }
 
+    public MonAn setFoodCategoryID(String foodCategoryID) {
+        this.foodCategoryID = foodCategoryID;
+        return this;
+    }
     public String getTenQuan() {
         return tenQuan;
     }
