@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/size10dp"
+    android:paddingRight="@dimen/size10dp"
+    tools:context=".ForgotPassActivity">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/editText_forgot_pass_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="@dimen/size10dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/text_size"
+        app:met_floatingLabel="highlight"
+        app:met_singleLineEllipsis="false" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/button_forgot_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText_forgot_pass_email"
+        android:layout_margin="16dp"
+        android:text="Lấy lại mật khẩu"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:buttonColor="@color/colorPrimary" />
+
+</RelativeLayout>

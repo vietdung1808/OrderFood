@@ -111,11 +111,7 @@ public class ChangePassActivity extends AppCompatActivity {
         dong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(type.equals("admin")) startActivity(new Intent(ChangePassActivity.this, RestaurantActivity.class));
-
-//                else if(type.equals("admin")) startActivity(new Intent(ChangePassActivity.this,AdminActivity.class));
-
-//                else startActivity(new Intent(ChangePassActivity.this, KhachHangActivity.class));
+                finish();
 
             }
         });

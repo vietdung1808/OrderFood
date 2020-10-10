@@ -66,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         Paper.init(this);
         mEmail = Paper.book().read(Common.USER_KEY,"");
         mPass = Paper.book().read(Common.PWD_KEY,"");
+        etEmail.setText(mEmail);
+        etPass.setText(mPass);
         if (mEmail.length() > 0 && mPass.length() > 0) {
             DangNhap(mEmail, mPass, true);
         }
@@ -83,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         tvForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this,ForgotPassActivity.class));
+                startActivity(new Intent(LoginActivity.this,ForgotPassActivity.class));
             }
         });
 
@@ -110,10 +112,6 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             if (isNetworkAvailable()) {
                 dlgWaiting.show();
-                if (chkRemember.isChecked()) {
-                    Paper.book().write(Common.USER_KEY, email);
-                    Paper.book().write(Common.PWD_KEY, pass);
-                }
                 mAuthencation.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -127,6 +125,10 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     dlgWaiting.dismiss();
+                                    if (chkRemember.isChecked()) {
+                                        Paper.book().write(Common.USER_KEY, email);
+                                        Paper.book().write(Common.PWD_KEY, pass);
+                                    }
                                     User user = dataSnapshot.getValue(User.class);
                                     if (user.getUserType().equals("admin")) {
                                         startActivity(new Intent(LoginActivity.this, RestaurantActivity.class));
@@ -137,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.makeText(LoginActivity.this, "Vui lòng xác thực Email để đăng nhập", Toast.LENGTH_SHORT).show();
                                         }
                                     }
+                                    mData.removeEventListener(this);
 //                                    startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                                 }
 
